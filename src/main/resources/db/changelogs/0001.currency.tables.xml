@@ -1,0 +1,46 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="andris.smolovskis" id="1">
+        <createSequence sequenceName="HIBERNATE_SEQUENCE"/>
+
+        <createTable tableName="CURRENCY">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="PK__CURRENCY__ID" unique="true" nullable="false"/>
+            </column>
+            <column name="CODE" type="NVARCHAR(3)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="CURRENCY_CONVERSION_RATE">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="PK__CURRENCY_CONVERSION_RATE__ID" nullable="false"/>
+            </column>
+            <column name="RATE" type="DECIMAL(19, 14)"/>
+            <column name="FROM_CURRENCY_ID" type="BIGINT">
+                <constraints foreignKeyName="FK__FROM_CURRENCY_ID__CURRENCY_CONVERSION_RATE__CODE__CURRENCY"
+                             referencedColumnNames="ID" referencedTableName="CURRENCY" nullable="false"/>
+            </column>
+            <column name="TO_CURRENCY_ID" type="BIGINT">
+                <constraints foreignKeyName="FK__TO_CURRENCY_ID__CURRENCY_CONVERSION_RATE__CODE__CURRENCY"
+                             referencedColumnNames="ID" referencedTableName="CURRENCY" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="IX__FROM_CURRENCY_ID__CURRENCY_CONVERSION_RATE" tableName="CURRENCY_CONVERSION_RATE">
+            <column name="FROM_CURRENCY_ID"/>
+        </createIndex>
+
+        <createIndex indexName="IX__TO_CURRENCY_ID__CURRENCY_CONVERSION_RATE" tableName="CURRENCY_CONVERSION_RATE">
+            <column name="TO_CURRENCY_ID"/>
+        </createIndex>
+
+
+        <addUniqueConstraint constraintName="UQ__CURRENCY_CONVERSION_RATE__FROM__TO"
+                             tableName="CURRENCY_CONVERSION_RATE" columnNames="FROM_CURRENCY_ID, TO_CURRENCY_ID"/>
+    </changeSet>
+</databaseChangeLog>

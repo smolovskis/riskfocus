@@ -1,6 +1,7 @@
 package com.riskfocus.currencyconverter.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,12 +16,12 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "CURRENCY_CONVERSION_RATE")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CurrencyConversionRate {
@@ -31,12 +32,12 @@ public class CurrencyConversionRate {
 
     @NotNull
     @ManyToOne(optional = false)
-    @JoinColumn(name = "FROM_CURRENCY_ID", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "FROM_CURRENCY_ID", nullable = false, updatable = false)
     private Currency from;
 
     @NotNull
     @ManyToOne(optional = false)
-    @JoinColumn(name = "TO_CURRENCY_ID", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "TO_CURRENCY_ID", nullable = false, updatable = false)
     private Currency to;
 
     @NotNull

@@ -1,17 +1,20 @@
 package com.riskfocus.currencyconverter.model.dto;
 
-import com.riskfocus.currencyconverter.model.Currency;
+import com.riskfocus.currencyconverter.validation.SupportedCurrency;
+import lombok.Builder;
+import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
-public class UpdateCurrencyRateRequest {
+@Data
+@Builder
+public class UpdateConversionRateRequest {
 
     @NotNull
+    @SupportedCurrency
     private String from;
 
     @NotNull
@@ -19,7 +22,7 @@ public class UpdateCurrencyRateRequest {
     private String to;
 
     @NotNull
+    @Positive
     @Digits(integer = 19, fraction = 14)
-    @Column(name = "RATE", nullable = false)
     private BigDecimal rate;
 }

@@ -1,9 +1,8 @@
-package com.riskfocus.currencyconverter.model.dto;
+package com.riskfocus.currencyconverter.validation;
 
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -18,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface SupportedCurrency {
 
-    String message() default "currency is not supported";
+    String message() default "Currency is not supported";
 
     Class<?>[] groups() default {};
 

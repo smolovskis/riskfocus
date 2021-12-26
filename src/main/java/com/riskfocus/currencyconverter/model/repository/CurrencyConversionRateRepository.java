@@ -1,14 +1,12 @@
 package com.riskfocus.currencyconverter.model.repository;
 
-import com.riskfocus.currencyconverter.model.Currency;
 import com.riskfocus.currencyconverter.model.CurrencyConversionRate;
+import com.riskfocus.currencyconverter.model.repository.custom.CurrencyConversionRateRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface CurrencyConversionRateRepository extends JpaRepository<CurrencyConversionRate, Long> {
+public interface CurrencyConversionRateRepository
+        extends JpaRepository<CurrencyConversionRate, Long>, CurrencyConversionRateRepositoryCustom {
 
-    Optional<CurrencyConversionRate> findCurrencyConversionRateByFromCodeAndToCode(String from, String to);
 }
